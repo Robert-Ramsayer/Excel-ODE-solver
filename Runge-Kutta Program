@@ -1,0 +1,109 @@
+Function f(t As Double, y As Double) As Double 'f=y'; have the function in the form y'=, and then copy the function here
+    f = -0.5 * Sin(y)
+End Function
+'this is only meant for 1st order ode's. to use modify the function f above first.
+'t=independant variable. h=step size, and y is self explanitory
+'don't modify anything below this statement.
+Function RKF(t As Double, y As Double, h As Double) As Double
+  Dim k1 As Double
+  Dim k2 As Double
+  Dim k3 As Double
+  Dim k4 As Double
+  
+  k1 = h * f(t, y)
+  k2 = h * f(t + h / 2, y + k1 / 2)
+  k3 = h * f(t + h / 2, y + k2 / 2)
+  k4 = h * f(t + h, y + k3)
+    RKF = y + (k1 + 2 * k2 + 2 * k3 + k4) / 6
+    
+End Function
+Function RK(h As Double, gal)
+    Dim t As Double
+    Dim y As Double
+    Dim z As Double '=y'
+    
+    Dim k1 As Double
+    Dim k2 As Double
+    Dim k3 As Double
+    Dim k4 As Double
+    Dim dy As Double
+    Dim lastbit(3) As Variant
+    Dim Step As Integer 'number of loops you want to run
+    Dim mh As Double 'mean mini h
+    Dim i As Integer
+    
+    
+    
+    
+    t = gal(1)
+    y = gal(2)
+    z = gal(3) 'this is never used
+    
+  
+    k1 = h * f(t, y)
+    k2 = h * f(t + h / 2, y + k1 / 2)
+    k3 = h * f(t + h / 2, y + k2 / 2)
+    k4 = h * f(t + h, y + k3)
+    
+    dy = (k1 + 2 * k2 + 2 * k3 + k4) / 6
+    
+    
+    
+    
+    lastbit(0) = t + h ' new t
+    lastbit(1) = y + dy 'new y
+    lastbit(2) = f(t + h, y + dy) 'new y'
+    RK = lastbit
+    
+End Function
+
+Function G(t As Double, y As Double, z As Double) As Double '  y'=z  y''=G
+ ' should be of the form y'' = the rest of the equation
+    G = -z - 37 / 4 * y
+End Function
+
+Function RKS(h As Double, parts)  'Runga-Kutta Second order
+'def tools for later
+'Dim h As Double
+Dim t As Double
+Dim y As Double
+Dim z As Double
+Dim ypp As Double
+'for y'
+Dim dz1 As Double
+Dim dz2 As Double
+Dim dz3 As Double
+Dim dz4 As Double
+Dim dz As Double
+Dim dy1 As Double
+Dim dy2 As Double
+Dim dy3 As Double
+Dim dy4 As Double
+Dim dy As Double
+
+Dim conc(4) As Variant
+
+'making cont
+t = parts(1)
+y = parts(2)
+z = parts(3)
+ypp = parts(4) ' this is never used
+
+    dz1 = h * G(t, y, z)
+    dy1 = h * (z + dz1 / 2)
+    dz2 = h * G(t + h / 2, y + dy1 / 2, z + dz1 / 2)
+    dy2 = h * (z + dz1 / 2)
+    dz3 = h * G(t + h / 2, y + dy2 / 2, z + dz1 / 2)
+    dy3 = h * (z + dz2 / 2)
+    dz4 = h * G(t + h, y + dy2 / 2, z + dz3 / 2)
+    dy4 = h * (z + dz3)
+    dy = 1 / 6 * (dy1 + 2 * dy2 + 2 * dy3 + dy4)
+    dz = 1 / 6 * (dz1 + 2 * dz2 + 2 * dz3 + dz4)
+    'codefying the output
+    conc(0) = t + h  'new t
+    conc(1) = y + dy 'new y
+    conc(2) = z + dz 'new y'
+    conc(3) = G(t + h, y + dy, z + dz)
+    RKS = conc
+    
+End Function
