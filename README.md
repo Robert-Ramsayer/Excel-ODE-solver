@@ -9,4 +9,7 @@ In order to use this just download the excel file on my page, and open it up. Wh
 
 Now if you're still suspecious, there is another option. I copied down the VBA program in the Runge-Kutta Program document. You can just open up an Excel sheet, press ALT+F11, right click on one the the excel sheets, insert, new macro, and then copy and paste my code. 
 
-AS for how to use it, you'll need to have the VBA page open, again ALT+F11. There are 2 Runge-Kutta programs. RK, for Runge-Kutta first order, and RKS for Runge Kutta Second order. Go to the f function for first order or the g funstion for the second order, enter the equation in the form (highest direvative = the rest of the equation) and then go the excel sheet type which ever function you chose, R
+==============
+
+How to use
+There are 2 differential equation solvers: First and Second order Runge-Kutta. Let's start with the first order Runge-Kutta Solver. To use this, first you'll need to open up the VBA program. Again, open up program by opening up the Excel sheet with the macro, and go to the function at the top starting titled f(). Enter the equation in the form of y'= the rest of the equation, then go back to the excel sheet. In my example spread sheet you'll see that there is a row of 5 letters with 4 numbers under it: h, t, y, y'. Under that row, put your starting values; the h is your step, put your initial t value under t, your y(t) value under y, and y' just has to be a number. In the row under that select an area 3 columns wide and 1 column deep. Type '=rkf(' input the values in this order ' h, (and in one highlighted suqare ) t, y, y' ( it shoudl looke like this 
