@@ -1,59 +1,32 @@
 Function f(t As Double, y As Double) As Double 'f=y'; have the function in the form y'=, and then copy the function here
-    f = -0.5 * Sin(y)
+    f = -5 * y + 2
 End Function
-'this is only meant for 1st order ode's. to use modify the function f above first.
-'t=independant variable. h=step size, and y is self explanitory
-'don't modify anything below this statement.
-Function RKF(t As Double, y As Double, h As Double) As Double
+Function RKF(h As Double, parts)
+
+  Dim t As Double
+  Dim y As Double
+  Dim yp As Double
+  Dim dy As Double
   Dim k1 As Double
   Dim k2 As Double
   Dim k3 As Double
   Dim k4 As Double
+  Dim conc(2) As Variant
+  t = parts(1)
+  y = parts(2)
+  yp = parts(3) 'this isn't used
   
   k1 = h * f(t, y)
   k2 = h * f(t + h / 2, y + k1 / 2)
   k3 = h * f(t + h / 2, y + k2 / 2)
   k4 = h * f(t + h, y + k3)
-    RKF = y + (k1 + 2 * k2 + 2 * k3 + k4) / 6
-    
-End Function
-Function RK(h As Double, gal)
-    Dim t As Double
-    Dim y As Double
-    Dim z As Double '=y'
-    
-    Dim k1 As Double
-    Dim k2 As Double
-    Dim k3 As Double
-    Dim k4 As Double
-    Dim dy As Double
-    Dim lastbit(3) As Variant
-    Dim Step As Integer 'number of loops you want to run
-    Dim mh As Double 'mean mini h
-    Dim i As Integer
-    
-    
-    
-    
-    t = gal(1)
-    y = gal(2)
-    z = gal(3) 'this is never used
-    
+  dy = (k1 + 2 * k2 + 2 * k3 + k4) / 6
   
-    k1 = h * f(t, y)
-    k2 = h * f(t + h / 2, y + k1 / 2)
-    k3 = h * f(t + h / 2, y + k2 / 2)
-    k4 = h * f(t + h, y + k3)
-    
-    dy = (k1 + 2 * k2 + 2 * k3 + k4) / 6
-    
-    
-    
-    
-    lastbit(0) = t + h ' new t
-    lastbit(1) = y + dy 'new y
-    lastbit(2) = f(t + h, y + dy) 'new y'
-    RK = lastbit
+  conc(0) = t + h ' for some reason the I/O numbering isn't the same
+  conc(1) = y + dy
+  conc(2) = f(1, y + dy)
+  
+  RKF = conc
     
 End Function
 
@@ -64,6 +37,7 @@ End Function
 
 Function RKS(h As Double, parts)  'Runga-Kutta Second order
 'def tools for later
+'GNU license, https://github.com/Robert-Ramsayer/Excel-ODE-solver
 'Dim h As Double
 Dim t As Double
 Dim y As Double
