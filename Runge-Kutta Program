@@ -37,7 +37,7 @@ End Function
 
 Function RKS(h As Double, parts)  'Runga-Kutta Second order
 'def tools for later
-'GNU license
+'GNU license, https://github.com/Robert-Ramsayer/Excel-ODE-solver
 'Dim h As Double
 Dim t As Double
 Dim y As Double
@@ -57,7 +57,7 @@ Dim dy As Double
 
 Dim conc(4) As Variant
 
-'making cont
+'Entering in data
 t = parts(1)
 y = parts(2)
 z = parts(3)
@@ -73,7 +73,7 @@ ypp = parts(4) ' this is never used
     dy4 = h * (z + dz3)
     dy = 1 / 6 * (dy1 + 2 * dy2 + 2 * dy3 + dy4)
     dz = 1 / 6 * (dz1 + 2 * dz2 + 2 * dz3 + dz4)
-    'codefying the output, https://github.com/Robert-Ramsayer/Excel-ODE-solver
+    'codefying the output
     conc(0) = t + h  'new t
     conc(1) = y + dy 'new y
     conc(2) = z + dz 'new y'
